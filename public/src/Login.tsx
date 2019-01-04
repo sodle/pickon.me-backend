@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import app from './base';
 import Firebase from 'firebase';
 import { Redirect } from 'react-router';
+import Helmet from 'react-helmet';
 
 interface ILoginProps {
     loading: boolean
@@ -18,6 +19,9 @@ export default class Login extends Component<ILoginProps> {
         } else {
             return (
                 <div>
+                    <Helmet>
+                        <title>Log In - Random Student Picker for Alexa</title>
+                    </Helmet>
                     Login!
                 </div>
             );

@@ -5,6 +5,7 @@ import Container from 'reactstrap/lib/Container';
 import Row from 'reactstrap/lib/Row';
 import Col from 'reactstrap/lib/Col';
 import Button from 'reactstrap/lib/Button';
+import Helmet from 'react-helmet';
 
 interface ICourseListing {
     [key: string]: Array<string>
@@ -45,6 +46,9 @@ export default class Roster extends Component<RouteComponentProps<IMatchProps>> 
         if (this.state.user.classes.hasOwnProperty(rosterId)) {
             return (
                 <Container>
+                    <Helmet>
+                        <title>Period {rosterId} Roster - Random Student Picker for Alexa</title>
+                    </Helmet>
                     <Row>
                         <Col xs='12'>
                             <h1>Class Roster: {rosterId}</h1>

@@ -4,6 +4,7 @@ import Container from "reactstrap/lib/Container";
 import Row from "reactstrap/lib/Row";
 import Col from "reactstrap/lib/Col";
 import Button from "reactstrap/lib/Button";
+import Helmet from "react-helmet";
 
 interface ICourseListing {
     [key: string]: Array<string>
@@ -38,6 +39,9 @@ export default class ClassList extends Component {
     render() {
         return <>
             <Container>
+                <Helmet>
+                    <title>My Classes - Random Student Picker for Alexa</title>
+                </Helmet>
                 <Row>
                     <Col md='6'>
                         <h1>My Classes</h1>

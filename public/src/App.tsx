@@ -18,6 +18,7 @@ import Collapse from 'reactstrap/lib/Collapse';
 import Nav from 'reactstrap/lib/Nav';
 import NavItem from 'reactstrap/lib/NavItem';
 import NavLink from 'reactstrap/lib/NavLink';
+import Helmet from 'react-helmet';
 
 interface IAppProps {};
 
@@ -78,6 +79,9 @@ class App extends Component<IAppProps> {
     return (
       <Router>
         <div>
+          <Helmet>
+            <title>Random Student Picker for Alexa</title>
+          </Helmet>
           <Navbar light color='light' expand='md'>
             <NavbarBrand href='/'>Random Student Picker for Alexa</NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
