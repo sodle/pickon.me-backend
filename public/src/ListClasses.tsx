@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import app from "./base";
+import Container from "reactstrap/lib/Container";
+import Row from "reactstrap/lib/Row";
+import Col from "reactstrap/lib/Col";
+import Button from "reactstrap/lib/Button";
 
 interface ICourseListing {
     [key: string]: Array<string>
@@ -32,46 +36,59 @@ export default class ClassList extends Component {
     }
 
     render() {
-        return (
-            <div>
-                <h1>My Classes</h1>
-                <div>
-                    <button onClick={() => {{
-                        let name = '';
-                        while (!/^[a-zA-Z0-9]$/.test(name)) {
-                            const input = prompt('Class period? (must be one letter or number)');
-                            if (input === null) {
-                                return;
-                            } else {
-                                name = input.toUpperCase();
+        return <>
+            <Container>
+                <Row>
+                    <Col md='6'>
+                        <h1>My Classes</h1>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col md='6'>
+                        <Button color='primary' onClick={() => {{
+                            let name = '';
+                            while (!/^[a-zA-Z0-9]$/.test(name)) {
+                                const input = prompt('Class period? (must be one letter or number)');
+                                if (input === null) {
+                                    return;
+                                } else {
+                                    name = input.toUpperCase();
+                                }
                             }
-                        }
-                        if (this.state.user.classes.hasOwnProperty(name)) {
-                            alert(`Class ${name} already exists!`);
-                        } else {
-                            let classes = Object.assign({}, this.state.user.classes);
-                            classes[name] = [];
-                            this.ref.update({classes});
-                        }
-                    }}}>+ Add a Class</button>
-                </div>
-                {
-                    (this.state.user.classes === null) ?
-                        <div>No classes. Go ahead and add one!</div> :
-                        <div>
-                            {Object.keys(this.state.user.classes).map(c => <div key={c}>
-                                {c} <button onClick={() => {
-                                    if (confirm(`Really delete class ${c}?`)) {
-                                        let classes = Object.assign({}, this.state.user.classes);
-                                        delete classes[c];
-                                        this.ref.update({classes});
-                                    }
-                                }}>Delete</button>
-                            </div>)}
-                        </div>
-                }
-            </div>
-        )
+                            if (this.state.user.classes.hasOwnProperty(name)) {
+                                alert(`Class ${name} already exists!`);
+                            } else {
+                                let classes = Object.assign({}, this.state.user.classes);
+                                classes[name] = [];
+                                this.ref.update({classes});
+                            }
+                        }}}>+ Add a Class</Button>
+                    </Col>
+                </Row>
+                <Row>
+                    {
+                        (this.state.user.classes === null) ?
+                            <Col md='12'>No classes. Go ahead and add one!</Col> :
+                            <Col md='12'>
+                                {Object.keys(this.state.user.classes).map(c => <Row key={c}>
+                                    <Col xs='6'>
+                                        <h3><a href={`/classes/${c}`}>{c}</a></h3>
+                                    </Col>
+                                    <Col xs='6'>
+                                        <Button color='danger' onClick={() => {
+                                            if (confirm(`Really delete class ${c}?`)) {
+                                                let classes = Object.assign({}, this.state.user.classes);
+                                                delete classes[c];
+                                                this.ref.update({classes});
+                                            }
+                                        }}>Delete</Button>
+                                    </Col>
+                                </Row>)}
+                            </Col>
+                    }
+                </Row>
+            </Container>
+        </>;
     }
 
     componentDidMount() {
