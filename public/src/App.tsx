@@ -105,7 +105,7 @@ class App extends Component<IAppProps> {
           </Navbar>
           <Container>
             <Route exact path='/' component={Home} />
-            <Route exact path='/login' component={Login} />
+            <Route exact path='/login' component={Login} loading={loading} />
             <Route exact path='/logout' component={Logout} />
             <PrivateRoute exact path='/classes' component={ClassList} authenticated={authenticated} />
             <PrivateRoute path='/classes/:id' component={Roster} authenticated={authenticated} />

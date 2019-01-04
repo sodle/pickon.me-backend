@@ -3,7 +3,11 @@ import app from './base';
 import Firebase from 'firebase';
 import { Redirect } from 'react-router';
 
-export default class Login extends Component {
+interface ILoginProps {
+    loading: boolean
+}
+
+export default class Login extends Component<ILoginProps> {
     state = {
         user: null
     };
@@ -12,15 +16,6 @@ export default class Login extends Component {
         if (this.state.user !== null) {
             return <Redirect to='/' />;
         } else {
-            console.log(this.state.user);
-            app.auth().getRedirectResult().then(result => {
-                console.log(result);
-                if (result.user !== null) {
-                    this.setState({
-                        user: result.user
-                    });
-                }
-            });
             return (
                 <div>
                     Login!
@@ -29,11 +24,19 @@ export default class Login extends Component {
         }
     }
     componentDidMount() {
-        if (this.state.user === null) {
-            const authProvider = new Firebase.auth.GoogleAuthProvider();
-            authProvider.addScope('profile');
-            authProvider.addScope('email');
-            app.auth().signInWithRedirect(authProvider);
+        if (!this.props.loading) {
+            app.auth().getRedirectResult().then(result => {
+                if (result.user !== null) {
+                    this.setState({
+                        user: result.user
+                    });
+                } else {
+                    const authProvider = new Firebase.auth.GoogleAuthProvider();
+                    authProvider.addScope('profile');
+                    authProvider.addScope('email');
+                    app.auth().signInWithRedirect(authProvider);
+                }
+            });
         }
     }
 }
