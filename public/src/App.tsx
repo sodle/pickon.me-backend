@@ -20,6 +20,8 @@ import NavItem from 'reactstrap/lib/NavItem';
 import NavLink from 'reactstrap/lib/NavLink';
 import Helmet from 'react-helmet';
 import Privacy from './Privacy';
+import Row from 'reactstrap/lib/Row';
+import Col from 'reactstrap/lib/Col';
 
 interface IAppProps {};
 
@@ -118,9 +120,13 @@ class App extends Component<IAppProps> {
             <PrivateRoute exact path='/tokens' component={OauthTokenList} authenticated={authenticated} />
             <PrivateRoute path='/alexa_token/:ticket' component={GetToken} authenticated={authenticated} />
           </Container>
-          <footer>
-            <a href='/privacy'>Privacy Policy and FERPA Statement</a>
-          </footer>
+          <Container>
+            <Row>
+              <Col xs='12'>
+                <a href='/privacy'>Privacy Policy and FERPA Statement</a>
+              </Col>
+            </Row>
+          </Container>
         </div>
       </Router>
     );
