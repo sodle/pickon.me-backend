@@ -193,8 +193,19 @@ export const alexaGetToken = functions.https.onRequest((request, response) => {
         });
     }).catch(err => {
         console.error(err);
-        response.status(500).send(err)
+        response.status(500).send(err);
     });
+});
+
+export const listClassPeriods = functions.https.onRequest((request, response) => {
+    oauth.authenticate(new OAuth2Server.Request(request), new OAuth2Server.Response(response)).then(token => {
+        firestore.doc(`/users/${token.user.id}`).get().then(snap => {
+            const user = snap.data();
+            response.send({
+                periods: Object.keys(user.classes)
+            });
+        }).catch(err => response.status(404).send(err));
+    }).catch(err => response.status(403).send(err));
 });
 
 export const pickRandomStudent = functions.https.onRequest((request, response) => {
