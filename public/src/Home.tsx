@@ -43,7 +43,7 @@ export default class Home extends Component {
                         {
                             (this.state.user !== null) ?
                                 <Alert color="success">Logged in as {this.state.user.displayName}</Alert> :
-                                <Alert color="secondary">Not logged in - <a href='/login'>Sign in with Google</a></Alert>
+                                <Alert color="secondary">Not logged in - <a href='/login'>Log in with Google</a></Alert>
                         }
                     </Col>
                 </Row>
@@ -62,7 +62,7 @@ export default class Home extends Component {
                     <Col md='4'>
                         <h3>Connect your device</h3>
                         <p>
-                            Alexa, Google Assistant, and Slack integration coming soon.
+                            Alexa, Google Assistant, and Slack integrations coming soon.
                         </p>
                     </Col>
                     <Col md='4'>
