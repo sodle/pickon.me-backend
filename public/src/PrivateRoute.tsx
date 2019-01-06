@@ -21,7 +21,10 @@ export default function PrivateRoute({
         authenticated === true ? (
           <Component {...props} {...rest} />
         ) : (
-          <Redirect to="/login" />
+          <Redirect to={{
+            pathname: `/login`,
+            search: `?next=${props.location.pathname + props.location.search + props.location.hash}`
+          }} />
         )
       }
     />

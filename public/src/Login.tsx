@@ -3,9 +3,11 @@ import app from './base';
 import Firebase from 'firebase';
 import { Redirect } from 'react-router';
 import Helmet from 'react-helmet';
+import queryString from 'querystring';
 
 interface ILoginProps {
-    loading: boolean
+    loading: boolean,
+    location?: any
 }
 
 export default class Login extends Component<ILoginProps> {
@@ -14,8 +16,13 @@ export default class Login extends Component<ILoginProps> {
     };
 
     render() {
+        let search = queryString.parse(this.props.location.search.substr(1));
         if (this.state.user !== null) {
-            return <Redirect to='/' />;
+            if (search.hasOwnProperty('next') && typeof search.next === 'string') {
+                return <Redirect to={search.next} />;
+            } else {
+                return <Redirect to='/' />;
+            }
         } else {
             return (
                 <div>
