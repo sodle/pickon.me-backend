@@ -61,13 +61,23 @@ const oauth = new OAuth2Server({
                     clientId: client.id,
                     userId: user.id
                 }),
-                firestore.doc(`refresh_tokens/${token.refreshToken}`).set({
+                firestore.doc(`/refresh_tokens/${token.refreshToken}`).set({
                     code: token.refreshToken,
                     expiresAt: token.refreshTokenExpiresAt,
                     clientId: client.id,
                     userId: user.id
                 })
             ]).then(() => {
+                return {
+                    accessToken: token.accessToken,
+                    accessTokenExpiresAt: token.accessTokenExpiresAt,
+                    refreshToken: token.refreshToken,
+                    refreshTokenExpiresAt: token.refreshTokenExpiresAt,
+                    client,
+                    user
+                };
+            }).catch(err => {
+                console.error(err);
                 return {
                     accessToken: token.accessToken,
                     accessTokenExpiresAt: token.accessTokenExpiresAt,
@@ -100,10 +110,7 @@ const oauth = new OAuth2Server({
             console.log('revokeAuthCode');
             return firestore.doc(`/auth_codes/${code.authorizationCode}`).delete().then(() => true);
         },
-        revokeToken: async (token) => {
-            console.log('revokeToken');
-            return firestore.doc(`/refresh_tokens/${token.refreshToken}`).delete().then(() => true);
-        },
+        revokeToken: () => true,
         getAccessToken: async (token) => {
             console.log('getAccessToken');
             return firestore.doc(`/access_tokens/${token}`).get().then(snap => {
@@ -126,7 +133,7 @@ const oauth = new OAuth2Server({
             return firestore.doc(`/refresh_tokens/${token}`).get().then(snap => {
                 const refreshToken = snap.data();
                 return {
-                    refreshToken: token,
+                    refreshToken: refreshToken.code,
                     refreshTokenExpiresAt: refreshToken.expiresAt.toDate(),
                     client: {
                         id: refreshToken.clientId
