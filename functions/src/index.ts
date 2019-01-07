@@ -152,6 +152,10 @@ const oauth = new OAuth2Server({
 });
 
 export const alexaStartAccountLink = functions.https.onRequest((request, response) => {
+    if (request.query.hasOwnProperty('keepwarm')) {
+        response.send('warm');
+        return;
+    }
     if (request.query.hasOwnProperty('redirect_uri')) {
         request.query.redirectUri = request.query.redirect_uri;
     }
@@ -165,6 +169,10 @@ export const alexaStartAccountLink = functions.https.onRequest((request, respons
 });
 
 export const alexaContinueAccountLink = functions.https.onRequest((request, response) => {
+    if (request.query.hasOwnProperty('keepwarm')) {
+        response.send('warm');
+        return;
+    }
     console.log('launch');
     firestore.doc(`/alexa_accountlink_tickets/${request.body.ticket}`).get().then(snap => {
         const ticket = snap.data();
@@ -188,6 +196,10 @@ export const alexaContinueAccountLink = functions.https.onRequest((request, resp
 });
 
 export const alexaGetToken = functions.https.onRequest((request, response) => {
+    if (request.query.hasOwnProperty('keepwarm')) {
+        response.send('warm');
+        return;
+    }
     console.log(request.query);
     console.log(request.body);
     oauth.token(new OAuth2Server.Request(request), new OAuth2Server.Response(response)).then(token => {
@@ -205,6 +217,10 @@ export const alexaGetToken = functions.https.onRequest((request, response) => {
 });
 
 export const listClassPeriods = functions.https.onRequest((request, response) => {
+    if (request.query.hasOwnProperty('keepwarm')) {
+        response.send('warm');
+        return;
+    }
     oauth.authenticate(new OAuth2Server.Request(request), new OAuth2Server.Response(response)).then(token => {
         firestore.doc(`/users/${token.user.id}`).get().then(snap => {
             const user = snap.data();
@@ -216,6 +232,10 @@ export const listClassPeriods = functions.https.onRequest((request, response) =>
 });
 
 export const pickRandomStudent = functions.https.onRequest((request, response) => {
+    if (request.query.hasOwnProperty('keepwarm')) {
+        response.send('warm');
+        return;
+    }
     oauth.authenticate(new OAuth2Server.Request(request), new OAuth2Server.Response(response)).then(token => {
         firestore.doc(`/users/${token.user.id}`).get().then(snap => {
             const user = snap.data();
