@@ -56,6 +56,9 @@ export default class Home extends Component {
                     <Col md='4'>
                         <h3>Upload your class list</h3>
                         <p>
+                            <a href='/classes'>Manage your class periods here.</a>
+                        </p>
+                        <p>
                             You can organize by class period.
                         </p>
                     </Col>

@@ -45,6 +45,9 @@ export default class ClassList extends Component {
                 <Row>
                     <Col md='6'>
                         <h1>My Classes</h1>
+                        <p>
+                            Here, you can add your different class periods. Each class period can be denoted by a single number or letter.
+                        </p>
                     </Col>
                 </Row>
                 <Row>
