@@ -22,6 +22,7 @@ import Helmet from 'react-helmet';
 import Privacy from './Privacy';
 import Row from 'reactstrap/lib/Row';
 import Col from 'reactstrap/lib/Col';
+import QuickStart from './QuickStart';
 
 interface IAppProps {};
 
@@ -119,6 +120,7 @@ class App extends Component<IAppProps> {
             <PrivateRoute path='/classes/:id' component={Roster} authenticated={authenticated} />
             <PrivateRoute exact path='/tokens' component={OauthTokenList} authenticated={authenticated} />
             <PrivateRoute path='/alexa_token/:ticket' component={GetToken} authenticated={authenticated} />
+            <PrivateRoute exact path='/quickstart' component={QuickStart} authenticated={authenticated} />
           </Container>
           <Container>
             <Row>

@@ -4,6 +4,8 @@ import Container from 'reactstrap/lib/Container';
 import Alert from 'reactstrap/lib/Alert';
 import Row from 'reactstrap/lib/Row';
 import Col from 'reactstrap/lib/Col';
+import Button from 'reactstrap/lib/Button';
+import { Link } from 'react-router-dom';
 
 interface IHomeState {
     user: firebase.User | null
@@ -76,6 +78,11 @@ export default class Home extends Component {
                         <p>
                             "I think it's {this.nameList[Math.floor(Math.random() * this.nameList.length)]}'s turn to answer."
                         </p>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col md='12'>
+                        <Button tag={Link} to="/quickstart" color="success" style={{width: '100%'}}>Get Started Quick</Button>
                     </Col>
                 </Row>
             </Container>
