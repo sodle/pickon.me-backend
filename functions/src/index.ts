@@ -2,6 +2,7 @@ import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import * as OAuth2Server from 'oauth2-server';
 import { pbkdf2Sync } from 'crypto';
+import { dialogflow, Suggestions } from 'actions-on-google';
 
 admin.initializeApp();
 const firestore = admin.firestore();
@@ -255,3 +256,78 @@ export const pickRandomStudent = functions.https.onRequest((request, response) =
         }).catch(err => response.status(500).send(err));
     }).catch(err => response.status(403).send(err));
 });
+
+const app = dialogflow({
+    debug: true,
+    clientId: '837061064935-iovrpfo6mbe173janubuqre80dq12ghk.apps.googleusercontent.com'
+});
+
+app.intent('Default Welcome Intent', async (conv) => {
+    const email = conv.user.profile.payload.email;
+    const snap = await admin.auth().getUserByEmail(email)
+        .then(user => {
+            return firestore.doc(`/users/${user.uid}`).get();
+        })
+        .catch(() => {
+            conv.add('Welcome! Please sign in at pickon.me to set up your account.');
+            conv.close();
+        });
+    if (snap) {
+        const user = snap.data();
+        if (Object.keys(user.classes).length === 0) {
+            conv.add(`You don't have any class periods set up. Please create some at pickon.me.`);
+            conv.close();
+        }
+        else if (Object.keys(user.classes).length === 1) {
+            const period = Object.keys(user.classes)[0];
+            const roster = user.classes[period];
+            if (roster.length === 0) {
+                conv.add(`There are no students in period ${period}.. Please add some at pickon.me.`);
+                conv.close();
+            } else {
+                const student = roster[Math.floor(Math.random() * roster.length)];
+                conv.add(student);
+                conv.close();
+            }
+        } else {
+            conv.ask('From which period?');
+            if (conv.surface.capabilities.has('actions.capability.SCREEN_OUTPUT')) {
+                conv.add(new Suggestions(Object.keys(user.classes)));
+            }
+        }
+    } else {
+        conv.add('Sorry, an error occurred.');
+        conv.close();
+    }
+});
+
+app.intent('From Period Intent', async (conv, params) => {
+    const email = conv.user.profile.payload.email;
+    const snap = await admin.auth().getUserByEmail(email)
+        .then(user => {
+            return firestore.doc(`/users/${user.uid}`).get();
+        })
+        .catch(() => {
+            conv.add('Welcome! Please sign in at pickon.me to set up your account.');
+        });
+    if (snap) {
+        const user = snap.data();
+        const period = params.ClassPeriod.toString().toUpperCase();
+        if (user.classes.hasOwnProperty(period)) {
+            const roster = user.classes[period];
+            if (roster.length === 0) {
+                conv.add(`There are no students in period ${period}.. Please add some at pickon.me.`);
+            } else {
+                const student = roster[Math.floor(Math.random() * roster.length)];
+                conv.add(student);
+            }
+        } else {
+            conv.add(`You haven't set up a period ${period}.. Please configure it at pickon.me.`);
+        }
+    } else {
+        conv.add('Sorry, an error occurred.');
+    }
+    conv.close();
+});
+
+exports.dialogflowFulfillment = functions.https.onRequest(app);
