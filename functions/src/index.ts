@@ -2,7 +2,7 @@ import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import * as OAuth2Server from 'oauth2-server';
 import { pbkdf2Sync } from 'crypto';
-import { dialogflow, Suggestions } from 'actions-on-google';
+import { dialogflow, Suggestions, BasicCard, Button } from 'actions-on-google';
 
 admin.initializeApp();
 const firestore = admin.firestore();
@@ -270,12 +270,26 @@ app.intent('Default Welcome Intent', async (conv) => {
         })
         .catch(() => {
             conv.add('Welcome! Please sign in at pickon.me to set up your account.');
+            conv.add(new BasicCard({
+                title: 'Please set up your pickon.me account.',
+                buttons: new Button({
+                    title: 'Sign in',
+                    url: 'https://pickon.me'
+                })
+            }));
             conv.close();
         });
     if (snap) {
         const user = snap.data();
         if (Object.keys(user.classes).length === 0) {
             conv.add(`You don't have any class periods set up. Please create some at pickon.me.`);
+            conv.add(new BasicCard({
+                title: `Set up class periods.`,
+                buttons: new Button({
+                    title: 'Add classes',
+                    url: `https://pickon.me/classes`
+                })
+            }));
             conv.close();
         }
         else if (Object.keys(user.classes).length === 1) {
@@ -283,10 +297,21 @@ app.intent('Default Welcome Intent', async (conv) => {
             const roster = user.classes[period];
             if (roster.length === 0) {
                 conv.add(`There are no students in period ${period}.. Please add some at pickon.me.`);
+                conv.add(new BasicCard({
+                    title: `Add students to period ${period}.`,
+                    buttons: new Button({
+                        title: 'Edit class',
+                        url: `https://pickon.me/classes/${period}`
+                    })
+                }));
                 conv.close();
             } else {
                 const student = roster[Math.floor(Math.random() * roster.length)];
                 conv.add(student);
+                conv.add(new BasicCard({
+                    title: 'Random Student',
+                    subtitle: student
+                }));
                 conv.close();
             }
         } else {
@@ -309,6 +334,13 @@ app.intent('From Period Intent', async (conv, params) => {
         })
         .catch(() => {
             conv.add('Welcome! Please sign in at pickon.me to set up your account.');
+            conv.add(new BasicCard({
+                title: 'Please set up your pickon.me account.',
+                buttons: new Button({
+                    title: 'Sign in',
+                    url: 'https://pickon.me'
+                })
+            }));
         });
     if (snap) {
         const user = snap.data();
@@ -317,12 +349,30 @@ app.intent('From Period Intent', async (conv, params) => {
             const roster = user.classes[period];
             if (roster.length === 0) {
                 conv.add(`There are no students in period ${period}.. Please add some at pickon.me.`);
+                conv.add(new BasicCard({
+                    title: `Add students to period ${period}.`,
+                    buttons: new Button({
+                        title: 'Edit class',
+                        url: `https://pickon.me/classes/${period}`
+                    })
+                }));
             } else {
                 const student = roster[Math.floor(Math.random() * roster.length)];
                 conv.add(student);
+                conv.add(new BasicCard({
+                    title: 'Random Student',
+                    subtitle: student
+                }));
             }
         } else {
             conv.add(`You haven't set up a period ${period}.. Please configure it at pickon.me.`);
+            conv.add(new BasicCard({
+                title: `Set up period ${period}.`,
+                buttons: new Button({
+                    title: 'Add class',
+                    url: `https://pickon.me/classes`
+                })
+            }));
         }
     } else {
         conv.add('Sorry, an error occurred.');
