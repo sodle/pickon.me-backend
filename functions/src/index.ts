@@ -272,6 +272,7 @@ app.intent('Default Welcome Intent', async (conv) => {
             conv.add('Welcome! Please sign in at pickon.me to set up your account.');
             conv.add(new BasicCard({
                 title: 'Please set up your pickon.me account.',
+                text: `Please set up your account.`,
                 buttons: new Button({
                     title: 'Sign in',
                     url: 'https://pickon.me'
@@ -285,6 +286,7 @@ app.intent('Default Welcome Intent', async (conv) => {
             conv.add(`You don't have any class periods set up. Please create some at pickon.me.`);
             conv.add(new BasicCard({
                 title: `Set up class periods.`,
+                text: `Please set up your classes.`,
                 buttons: new Button({
                     title: 'Add classes',
                     url: `https://pickon.me/classes`
@@ -299,6 +301,7 @@ app.intent('Default Welcome Intent', async (conv) => {
                 conv.add(`There are no students in period ${period}.. Please add some at pickon.me.`);
                 conv.add(new BasicCard({
                     title: `Add students to period ${period}.`,
+                    text: `Please set up period ${period}`,
                     buttons: new Button({
                         title: 'Edit class',
                         url: `https://pickon.me/classes/${period}`
@@ -310,7 +313,7 @@ app.intent('Default Welcome Intent', async (conv) => {
                 conv.add(student);
                 conv.add(new BasicCard({
                     title: 'Random Student',
-                    subtitle: student
+                    text: student
                 }));
                 conv.close();
             }
@@ -336,6 +339,7 @@ app.intent('From Period Intent', async (conv, params) => {
             conv.add('Welcome! Please sign in at pickon.me to set up your account.');
             conv.add(new BasicCard({
                 title: 'Please set up your pickon.me account.',
+                text: `Please set up your account.`,
                 buttons: new Button({
                     title: 'Sign in',
                     url: 'https://pickon.me'
@@ -351,6 +355,7 @@ app.intent('From Period Intent', async (conv, params) => {
                 conv.add(`There are no students in period ${period}.. Please add some at pickon.me.`);
                 conv.add(new BasicCard({
                     title: `Add students to period ${period}.`,
+                    text: `Please set up period ${period}.`,
                     buttons: new Button({
                         title: 'Edit class',
                         url: `https://pickon.me/classes/${period}`
@@ -361,13 +366,14 @@ app.intent('From Period Intent', async (conv, params) => {
                 conv.add(student);
                 conv.add(new BasicCard({
                     title: 'Random Student',
-                    subtitle: student
+                    text: student
                 }));
             }
         } else {
             conv.add(`You haven't set up a period ${period}.. Please configure it at pickon.me.`);
             conv.add(new BasicCard({
                 title: `Set up period ${period}.`,
+                text: `Please set up period ${period}.`,
                 buttons: new Button({
                     title: 'Add class',
                     url: `https://pickon.me/classes`
