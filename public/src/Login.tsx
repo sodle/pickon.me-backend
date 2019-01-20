@@ -43,6 +43,9 @@ export default class Login extends Component<ILoginProps> {
                     });
                 } else {
                     const authProvider = new Firebase.auth.GoogleAuthProvider();
+                    authProvider.setCustomParameters({
+                        prompt: 'select_account'
+                    });
                     authProvider.addScope('profile');
                     authProvider.addScope('email');
                     app.auth().signInWithRedirect(authProvider);
