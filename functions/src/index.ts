@@ -330,4 +330,8 @@ app.intent('From Period Intent', async (conv, params) => {
     conv.close();
 });
 
+app.fallback(conv => {
+    conv.add(`Sorry, I'm not sure about that.`);
+});
+
 exports.dialogflowFulfillment = functions.https.onRequest(app);
