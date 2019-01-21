@@ -44,7 +44,7 @@ export default class Home extends Component {
                     <Col xs='12'>
                         {
                             (this.state.user !== null) ?
-                                <Alert color="success">Logged in as {this.state.user.displayName}</Alert> :
+                                <Alert color="success">Logged in as {this.state.user.displayName} ({this.state.user.email})</Alert> :
                                 <Alert color="secondary">Not logged in - <a href='/login'>Log in with Google</a></Alert>
                         }
                     </Col>

@@ -9,6 +9,7 @@ import Button from "reactstrap/lib/Button";
 import InputGroup from "reactstrap/lib/InputGroup";
 import InputGroupAddon from "reactstrap/lib/InputGroupAddon";
 import Input from "reactstrap/lib/Input";
+import firebase from 'firebase';
 
 interface ICourseListing {
     [key: string]: Array<string>
@@ -70,6 +71,24 @@ export default class QuickStart extends Component {
                                 </Col>
                                 <Col xs='11'>
                                     <h2>Sign in with Google</h2>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col xs='12'>
+                                    <p>
+                                        Signed in as {app.auth().currentUser!.displayName} ({app.auth().currentUser!.email}). <Button size='sm' color='info' onClick={() => {
+                                            const authProvider = new firebase.auth.GoogleAuthProvider();
+                                            authProvider.setCustomParameters({
+                                                prompt: 'select_account'
+                                            });
+                                            authProvider.addScope('profile');
+                                            authProvider.addScope('email');
+                                            app.auth().signInWithRedirect(authProvider);
+                                        }}>Switch</Button>
+                                    </p>
+                                    <p>
+                                        If you are using Google Assistant, note that you must use the same Google Account for this app and the Assistant.
+                                    </p>
                                 </Col>
                             </Row>
                         </Container>
