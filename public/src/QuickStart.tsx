@@ -185,11 +185,19 @@ export default class QuickStart extends Component {
                                 </Col>
                             </Row>
                             <Row>
-                                <Col xs='12'>
-                                    <p>Enable the skill <a href="https://skills-store.amazon.com/deeplink/dp/B07MJ7H85N?deviceType=app&share&refSuffix=ss_copy" target="_blank">here</a> and link your account.</p>
+                                <Col xs='6'>
+                                    <h3>Alexa</h3>
+                                    <p>Enable the Skill <a href="https://skills-store.amazon.com/deeplink/dp/B07MJ7H85N?deviceType=app&share&refSuffix=ss_copy" target="_blank">here</a> and link your account.</p>
                                     <p>"Alexa, open random student"</p>
                                     <p>"Alexa, ask random student for period 3"</p>
                                     <p>"Alexa, ask random student for 5th hour"</p>
+                                </Col>
+                                <Col xs='6'>
+                                    <h3>Google Assistant</h3>
+                                    <p>No need to manually enable or link anything</p>
+                                    <p>"Hey Google, talk to random student"</p>
+                                    <p>"OK Google, ask random student for 6th period"</p>
+                                    <p>"Hey Google, ask random student for A hour."</p>
                                 </Col>
                             </Row>
                         </Container>
