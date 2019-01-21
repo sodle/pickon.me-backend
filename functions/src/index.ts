@@ -282,6 +282,15 @@ app.intent('Default Welcome Intent', async (conv) => {
         });
     if (snap) {
         const user = snap.data();
+        if (!user.googleAssistantLinked) {
+            await firestore.doc(`/users/${user.uid}`).update({
+                googleAssistantLinked: true
+            }).then(() => {
+                console.log('Initial account link!');
+            }).catch(() => {
+                console.error(`Couldn't update account link state?`);
+            });
+        }
         if (Object.keys(user.classes).length === 0) {
             conv.add(`You don't have any class periods set up. Please create some at pickon.me.`);
             conv.add(new BasicCard({
@@ -348,6 +357,15 @@ app.intent('From Period Intent', async (conv, params) => {
         });
     if (snap) {
         const user = snap.data();
+        if (!user.googleAssistantLinked) {
+            await firestore.doc(`/users/${user.uid}`).update({
+                googleAssistantLinked: true
+            }).then(() => {
+                console.log('Initial account link!');
+            }).catch(() => {
+                console.error(`Couldn't update account link state?`);
+            });
+        }
         const period = params.ClassPeriod.toString().toUpperCase();
         if (user.classes.hasOwnProperty(period)) {
             const roster = user.classes[period];

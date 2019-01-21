@@ -22,7 +22,8 @@ interface INewStudentState {
 interface IUserState {
     user: {
         joinDate: Date | null,
-        classes: ICourseListing
+        classes: ICourseListing,
+        googleAssistantLinked?: boolean
     },
     newStudent: INewStudentState,
     tokens: []
@@ -174,7 +175,7 @@ export default class QuickStart extends Component {
                             <Row>
                                 <Col xs='1'>
                                     {
-                                        (this.state.tokens.length > 0) ?
+                                        (this.state.tokens.length > 0 || this.state.user.googleAssistantLinked) ?
                                         <Badge color='success'><h2>&#10004;</h2></Badge> :
                                         null
                                     }
