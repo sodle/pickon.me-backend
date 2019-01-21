@@ -67,10 +67,10 @@ export default class Home extends Component {
                     <Col md='4'>
                         <h3>Connect your device</h3>
                         <p>
-                            <a href="https://skills-store.amazon.com/deeplink/dp/B07MJ7H85N?deviceType=app&share&refSuffix=ss_copy">Alexa Skill available now.</a>
+                            Alexa and Google Assistant integrations available now.
                         </p>
                         <p>
-                            Google Assistant and Slack integrations coming soon.
+                            Other integrations coming soon.
                         </p>
                     </Col>
                     <Col md='4'>
