@@ -283,12 +283,13 @@ app.intent('Default Welcome Intent', async (conv) => {
     if (snap) {
         const user = snap.data();
         if (!user.googleAssistantLinked) {
-            await firestore.doc(`/users/${user.uid}`).update({
+            await snap.ref.update({
                 googleAssistantLinked: true
             }).then(() => {
                 console.log('Initial account link!');
-            }).catch(() => {
+            }).catch(err => {
                 console.error(`Couldn't update account link state?`);
+                console.error(err);
             });
         }
         if (Object.keys(user.classes).length === 0) {
@@ -355,12 +356,13 @@ app.intent('From Period Intent', async (conv, params) => {
     if (snap) {
         const user = snap.data();
         if (!user.googleAssistantLinked) {
-            await firestore.doc(`/users/${user.uid}`).update({
+            await snap.ref.update({
                 googleAssistantLinked: true
             }).then(() => {
                 console.log('Initial account link!');
-            }).catch(() => {
+            }).catch(err => {
                 console.error(`Couldn't update account link state?`);
+                console.error(err);
             });
         }
         const period = params.ClassPeriod.toString().toUpperCase();
