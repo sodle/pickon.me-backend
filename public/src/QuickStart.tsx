@@ -56,7 +56,7 @@ export default class QuickStart extends Component {
         return (
             <Container>
                 <Helmet>
-                    <title>Get Started - Random Student Picker for Alexa</title>
+                    <title>Get Started - PickOn.Me</title>
                 </Helmet>
                 <Row>
                     <Col xs='12'>

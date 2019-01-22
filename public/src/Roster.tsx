@@ -47,7 +47,7 @@ export default class Roster extends Component<RouteComponentProps<IMatchProps>> 
             return (
                 <Container>
                     <Helmet>
-                        <title>Period {rosterId} Roster - Random Student Picker for Alexa</title>
+                        <title>Period {rosterId} Roster - PickOn.Me</title>
                     </Helmet>
                     <Row>
                         <Col xs='12'>
