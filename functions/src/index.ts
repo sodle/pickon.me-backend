@@ -332,9 +332,6 @@ app.intent('Default Welcome Intent', async (conv) => {
                 conv.add(new Suggestions(Object.keys(user.classes)));
             }
         }
-    } else {
-        conv.add('Sorry, an error occurred.');
-        conv.close();
     }
 });
 
@@ -398,8 +395,6 @@ app.intent('From Period Intent', async (conv, params) => {
                 })
             }));
         }
-    } else {
-        conv.add('Sorry, an error occurred.');
     }
     conv.close();
 });

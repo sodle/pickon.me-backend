@@ -84,10 +84,10 @@ class App extends Component<IAppProps> {
       <Router>
         <div>
           <Helmet>
-            <title>Random Student Picker for Alexa</title>
+            <title>PickOn.Me</title>
           </Helmet>
           <Navbar light color='light' expand='md'>
-            <NavbarBrand href='/'>Random Student Picker for Alexa</NavbarBrand>
+            <NavbarBrand href='/'>PickOn.Me</NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className='ml-auto' navbar>

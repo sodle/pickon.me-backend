@@ -40,7 +40,7 @@ export default class ClassList extends Component {
         return <>
             <Container>
                 <Helmet>
-                    <title>My Classes - Random Student Picker for Alexa</title>
+                    <title>My Classes - PickOn.Me</title>
                 </Helmet>
                 <Row>
                     <Col md='6'>

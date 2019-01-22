@@ -27,7 +27,7 @@ export default class Login extends Component<ILoginProps> {
             return (
                 <div>
                     <Helmet>
-                        <title>Log In - Random Student Picker for Alexa</title>
+                        <title>Log In - PickOn.Me</title>
                     </Helmet>
                     Login!
                 </div>
