@@ -107,7 +107,7 @@ export default class QuickStart extends Component {
                                 </Col>
                             </Row>
                             <Row>
-                                <Col xs='12'>
+                                <Col md='6'>
                                     <Button color='success' onClick={() => {{
                                         let name = '';
                                         while (!/^[a-zA-Z0-9]$/.test(name)) {
@@ -126,6 +126,39 @@ export default class QuickStart extends Component {
                                             this.ref.update({classes});
                                         }
                                     }}}>+ Add a Class Period</Button>
+                                </Col>
+                                <Col md='6'>
+                                    <Button color='primary' onClick={() => {
+                                        this.ref.update({
+                                            1: [
+                                                'Jeremy',
+                                                'Marques',
+                                                'Simone',
+                                                'Ethan',
+                                                'Hila'
+                                            ],
+                                            2: [
+                                                'Mike',
+                                                'Matt',
+                                                'Austin',
+                                                'Matthias',
+                                                'Sloan'
+                                            ],
+                                            4: [
+                                                'Joey',
+                                                'Chandler',
+                                                'Ross',
+                                                'Phoebe'
+                                            ],
+                                            A: [
+                                                'Hank',
+                                                'Bobby',
+                                                'Peggy',
+                                                'Bill',
+                                                'Dale'
+                                            ]
+                                        });
+                                    }}>See an example</Button>
                                 </Col>
                             </Row>
                             <Row>
