@@ -129,7 +129,12 @@ export default class QuickStart extends Component {
                                 </Col>
                                 <Col md='6'>
                                     <Button color='primary' onClick={() => {
-                                        this.ref.update({
+                                        if (Object.keys(this.state.user.classes).length > 0) {
+                                            if (!confirm('This will overwrite your existing class lists. Continue?')) {
+                                                return;
+                                            }
+                                        }
+                                        this.ref.update({classes: {
                                             1: [
                                                 'Jeremy',
                                                 'Marques',
@@ -157,7 +162,7 @@ export default class QuickStart extends Component {
                                                 'Bill',
                                                 'Dale'
                                             ]
-                                        });
+                                        }});
                                     }}>See an example</Button>
                                 </Col>
                             </Row>
