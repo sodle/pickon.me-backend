@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import app from './base';
-import Firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import { Redirect } from 'react-router';
 import Helmet from 'react-helmet';
 import queryString from 'querystring';
@@ -42,7 +43,7 @@ export default class Login extends Component<ILoginProps> {
                         user: result.user
                     });
                 } else {
-                    const authProvider = new Firebase.auth.GoogleAuthProvider();
+                    const authProvider = new firebase.auth.GoogleAuthProvider();
                     authProvider.setCustomParameters({
                         prompt: 'select_account'
                     });

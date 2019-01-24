@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { exact } from "prop-types";
 
 interface IPrivateRouteParams {
   component: typeof React.Component,

@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 
 const app = firebase.initializeApp({
     apiKey: "AIzaSyBpxh4y-AnXBXyefFdwIl-M603mwJpqGuA",

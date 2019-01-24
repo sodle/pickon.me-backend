@@ -9,7 +9,9 @@ import Button from "reactstrap/lib/Button";
 import InputGroup from "reactstrap/lib/InputGroup";
 import InputGroupAddon from "reactstrap/lib/InputGroupAddon";
 import Input from "reactstrap/lib/Input";
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
 
 interface ICourseListing {
     [key: string]: Array<string>

@@ -6,6 +6,8 @@ import Row from 'reactstrap/lib/Row';
 import Col from 'reactstrap/lib/Col';
 import Button from 'reactstrap/lib/Button';
 import Helmet from 'react-helmet';
+import 'firebase/firestore';
+import 'firebase/auth';
 
 interface ICourseListing {
     [key: string]: Array<string>

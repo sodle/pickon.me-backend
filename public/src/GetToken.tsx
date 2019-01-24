@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { RouteComponentProps } from 'react-router';
 import app from './base';
+import 'firebase/auth';
 
 interface IMatchProps {
     ticket: string

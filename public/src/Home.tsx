@@ -6,6 +6,7 @@ import Row from 'reactstrap/lib/Row';
 import Col from 'reactstrap/lib/Col';
 import Button from 'reactstrap/lib/Button';
 import { Link } from 'react-router-dom';
+import 'firebase/auth';
 
 interface IHomeState {
     user: firebase.User | null
