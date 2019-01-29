@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import app from "./base";
 import Container from "reactstrap/lib/Container";
 import Row from "reactstrap/lib/Row";
@@ -27,6 +27,7 @@ export default class ClassList extends Component {
     };
 
     ref: firebase.firestore.DocumentReference
+    private topRef = createRef<HTMLDivElement>()
 
     constructor(props: React.Props<ClassList>) {
         super(props);
@@ -40,6 +41,7 @@ export default class ClassList extends Component {
     render() {
         return <>
             <Container>
+                <div ref={this.topRef} />
                 <Helmet>
                     <title>My Classes - PickOn.Me</title>
                 </Helmet>
@@ -100,6 +102,17 @@ export default class ClassList extends Component {
     }
 
     componentDidMount() {
+        const gaScript = document.createElement('script');
+        gaScript.async = true;
+        gaScript.type = 'text/javascript';
+        gaScript.src = '//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+        this.topRef.current!.appendChild(gaScript);
+
+        const gaLoader = document.createElement('script');
+        gaLoader.type = 'text/javascript';
+        gaLoader.innerHTML = `(adsbygoogle = window.adsbygoogle || []).push({google_ad_client: "ca-pub-1307035032074289", enable_page_level_ads: true});`;
+        this.topRef.current!.appendChild(gaLoader);
+
         this.ref.onSnapshot(snap => {
             if (!snap.exists) {
                 snap.ref.set({

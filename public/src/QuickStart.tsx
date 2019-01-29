@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import Container from "reactstrap/lib/Container";
 import Row from "reactstrap/lib/Row";
 import Col from "reactstrap/lib/Col";
@@ -43,6 +43,7 @@ export default class QuickStart extends Component {
 
     ref: firebase.firestore.DocumentReference
     tokenRef: firebase.firestore.Query
+    private topRef = createRef<HTMLDivElement>()
 
     constructor(props: React.Props<QuickStart>) {
         super(props);
@@ -57,6 +58,7 @@ export default class QuickStart extends Component {
     render() {
         return (
             <Container>
+                <div ref={this.topRef} />
                 <Helmet>
                     <title>Get Started - PickOn.Me</title>
                 </Helmet>
@@ -248,6 +250,17 @@ export default class QuickStart extends Component {
     }
 
     componentDidMount() {
+        const gaScript = document.createElement('script');
+        gaScript.async = true;
+        gaScript.type = 'text/javascript';
+        gaScript.src = '//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+        this.topRef.current!.appendChild(gaScript);
+
+        const gaLoader = document.createElement('script');
+        gaLoader.type = 'text/javascript';
+        gaLoader.innerHTML = `(adsbygoogle = window.adsbygoogle || []).push({google_ad_client: "ca-pub-1307035032074289", enable_page_level_ads: true});`;
+        this.topRef.current!.appendChild(gaLoader);
+
         this.ref.onSnapshot(snap => {
             if (!snap.exists) {
                 snap.ref.set({

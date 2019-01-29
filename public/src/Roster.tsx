@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import { RouteComponentProps } from 'react-router';
 import app from './base';
 import Container from 'reactstrap/lib/Container';
@@ -33,6 +33,7 @@ export default class Roster extends Component<RouteComponentProps<IMatchProps>> 
     }
 
     ref: firebase.firestore.DocumentReference
+    private topRef = createRef<HTMLDivElement>()
     
     constructor(props: RouteComponentProps<IMatchProps>) {
         super(props);
@@ -48,6 +49,7 @@ export default class Roster extends Component<RouteComponentProps<IMatchProps>> 
         if (this.state.user.classes.hasOwnProperty(rosterId)) {
             return (
                 <Container>
+                    <div ref={this.topRef} />
                     <Helmet>
                         <title>Period {rosterId} Roster - PickOn.Me</title>
                     </Helmet>
@@ -111,11 +113,25 @@ export default class Roster extends Component<RouteComponentProps<IMatchProps>> 
                 </Container>
             );
         } else {
-            return <div>Class {rosterId} not found!</div>;
+            return <>
+                <div ref={this.topRef} />
+                <div>Class {rosterId} not found!</div>
+            </>;
         }
     }
 
     componentDidMount() {
+        const gaScript = document.createElement('script');
+        gaScript.async = true;
+        gaScript.type = 'text/javascript';
+        gaScript.src = '//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+        this.topRef.current!.appendChild(gaScript);
+
+        const gaLoader = document.createElement('script');
+        gaLoader.type = 'text/javascript';
+        gaLoader.innerHTML = `(adsbygoogle = window.adsbygoogle || []).push({google_ad_client: "ca-pub-1307035032074289", enable_page_level_ads: true});`;
+        this.topRef.current!.appendChild(gaLoader);
+
         this.ref.onSnapshot(snap => {
             if (!snap.exists) {
                 snap.ref.set({
